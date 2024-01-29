@@ -1,4 +1,4 @@
-name: Terraform Deployment
+name: Terraform CI
 
 # when we git push successfully, this segment will run
 on:
@@ -32,6 +32,16 @@ jobs:
     - name: Initialize Terraform
       run: terraform init
 
+#terraform fmt
+    - name: Terraform prettify
+      run: terraform fmt
+
+
+      
 #terraform plan
     - name: Terraform Plan
       run: terraform plan
+
+#terraform validate
+    - name: Terraform Validate
+      run: terraform validate

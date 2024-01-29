@@ -2,7 +2,7 @@ name: Terraform CI
 
 # when we git push successfully, this segment will run
 on:
- push:
+ pull_request:
    branches:
      - main
 # declaring the running agent

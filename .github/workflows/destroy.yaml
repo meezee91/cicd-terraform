@@ -1,4 +1,4 @@
-name: Terraform CD
+name: Terraform Destroy
 
 
 on:
@@ -17,7 +17,7 @@ on:
 
 
 jobs:
- terraform-cd:
+ terraform-destroy:
    runs-on: ubuntu-latest
 
    steps:
@@ -41,14 +41,10 @@ jobs:
    - name: Initialize Terraform
      run: terraform init
 
-#terraform apply - the addition at the back is used to trigger the tfvars
-   - name: Initialize Terraform
-     run: terraform apply --auto-approve -var-file="environments/${{ github.event.inputs.environment }}.tfvars"
-          
-# Wait 10 minutes
-    -name: wait for 10 min
-    run: sleep 300
+#terraform destroy
+   - name: Destroy Terraform
+     run: terraform destroy --auto-approve -var-file="environments/${{ github.event.inputs.environment }}.tfvars"
+#the addition at the back is used to trigger the tfvars
 
-    -name: Initialize Terraform
-    run: terraform apply --auto-approve -var-file="environments/${{ github.event.inputs.environment }}.tfvars"
+
 

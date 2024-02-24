@@ -1,47 +1,58 @@
 name: Terraform CI
 
-# when we git push successfully, this segment will run
+
 on:
- pull_request:
-   branches:
-     - main
-# declaring the running agent
-# jobs is a github-specific keyword
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+
 jobs:
-  terraform:
-    runs-on: ubuntu-latest
+ terraform-ci:
+   runs-on: ubuntu-latest
 
-    steps:
-#git clone/git checkout
+   steps:
+  ##setup
+   - name: Checkout repository
+     uses: actions/checkout@v2
 
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-#aws configure
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
+  #aws configure
+   - name: Configure AWS credentials
+     uses: aws-actions/configure-aws-credentials@v1
+     with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1 # or hardcode us-east-1
 
 #install terraform
-    - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v1
+   - name: Set up Terraform
+     uses: hashicorp/setup-terraform@v1
+
 #terraform init
-    - name: Initialize Terraform
-      run: terraform init
+   - name: Initialize Terraform
+     run: terraform init
 
 #terraform fmt
-    - name: Terraform prettify
-      run: terraform fmt
+   - name: Terraform prettify
+     run: terraform fmt
 
+# View terraform workspaces
+   - name: Terraform workspace list
+     run: terraform workspace list
 
-      
+# Select terraform workspace
+   - name: Terraform workspace new environment and select
+     run: |
+        terraform workspace select dev || terraform workspace new dev
+        terraform workspace list
+
 #terraform plan
-    - name: Terraform Plan
-      run: terraform plan
+   - name: Terraform Plan
+     run: terraform plan --var-file="environments/dev.tfvars"
 
 #terraform validate
-    - name: Terraform Validate
-      run: terraform validate
+   - name: Terraform validate
+     run: terraform validate

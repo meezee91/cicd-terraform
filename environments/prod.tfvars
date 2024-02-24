@@ -1,5 +1,5 @@
 env = "prd"
-key_name = "tarmizi-useast-1-keypair"
+key_name = "tarmizi-useast1-keypair"
 vpc_id = "vpc-02c3cea2893bac90f"
 sg_name = "tarmizi-allow-http-https-ssh-traffic-ex-prd"
 ami_id = "ami-0e731c8a588258d0d"

@@ -49,7 +49,7 @@ jobs:
 #select terraform workspace 
    - name: Terraform workspace new environment and select
      run: |
-       terraform workspace select ${{ github.event.inputs.choice }} || terraform workspace new ${{ github.event.inputs.choice }}
+       terraform workspace select ${{ github.event.inputs.environment }} || terraform workspace new ${{ github.event.inputs.environment }}
        terraform workspace list
 
 

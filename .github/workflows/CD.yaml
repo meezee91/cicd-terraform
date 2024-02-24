@@ -40,15 +40,20 @@ jobs:
 #terraform init
    - name: Initialize Terraform
      run: terraform init
+  
+
+#view terraform workspace
+   - name: Terraform workspace list
+     run: terraform workspace list
+
+#select terraform workspace 
+   - name: Terraform workspace new environment and select
+     run: |
+       terraform workspace select ${{ github.event.inputs.choice }} || terraform workspace new ${{ github.event.inputs.choice }}
+       terraform workspace list
+
 
 #terraform apply - the addition at the back is used to trigger the tfvars
    - name: Initialize Terraform
      run: terraform apply --auto-approve -var-file="environments/${{ github.event.inputs.environment }}.tfvars"
-          
-# Wait 10 minutes
-    -name: wait for 10 min
-    run: sleep 300
-
-    -name: Initialize Terraform
-    run: terraform destroy --auto-approve -var-file="environments/${{ github.event.inputs.environment }}.tfvars"
 

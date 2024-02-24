@@ -54,6 +54,6 @@ jobs:
 
 
 #terraform apply - the addition at the back is used to trigger the tfvars
-   - name: Initialize Terraform
+   - name: Apply Terraform
      run: terraform apply --auto-approve -var-file="environments/${{ github.event.inputs.environment }}.tfvars"
 

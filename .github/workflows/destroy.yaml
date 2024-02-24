@@ -39,6 +39,16 @@ jobs:
         - name: Initialize Terraform
           run: terraform init
 
+    # View terraform workspaces
+        - name: Terraform workspace list
+          run: terraform workspace list
+
+# Select terraform workspace
+        - name: Terraform workspace new environment and select
+          run: |
+            terraform workspace select ${{ github.event.inputs.environment }} || terraform workspace new ${{ github.event.inputs.environment }}
+            terraform workspace list
+
     # terraform destroy
         - name: Terraform Destroy
           run: terraform destroy --auto-approve -var-file="environments/${{ github.event.inputs.environment }}.tfvars"

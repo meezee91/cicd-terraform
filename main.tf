@@ -4,6 +4,6 @@ locals {
 
 #new sns topic
 resource "aws_sns_topic" "user_updates" {
-  name = "tarmizi-updates-topic-${var.abc}"
+  name = "tarmizi-updates-topic-${var.env}"
 }
 

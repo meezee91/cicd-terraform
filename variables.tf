@@ -5,16 +5,16 @@ variable "env" {
 }
 
 
-variable ami_id {}
+variable "ami_id" {}
 
-variable instance_type {}
+variable "instance_type" {}
 
-variable key_name {}
+variable "key_name" {}
 
-variable ec2_name {}
+variable "ec2_name" {}
 
-variable sg_name {}
+variable "sg_name" {}
 
-variable vpc_name {}
+variable "vpc_name" {}
 
-variable subnet_name {}
+variable "subnet_name" {}
